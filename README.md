@@ -1,1 +1,0 @@
-# mehmetcantozlu.github.io
