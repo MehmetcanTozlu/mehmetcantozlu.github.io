@@ -82,13 +82,27 @@ input, select, textarea {
 		-ms-overflow-style: scrollbar;
 	}
 
-	@media screen and (max-width: 480px) {
+	/* @media screen and (max-width: 480px) {
 
 		html, body {
 			min-width: 320px;
 		}
 
-	}
+	} */
+
+	@media screen and (max-width: 480px) {
+
+        html, body {
+            min-width: 300px;
+            min-height: 300px;
+        }
+        
+        #wrapper {
+            min-width: 300px;
+            min-height: 300px;
+        }
+
+    }
 
 	html {
 		box-sizing: border-box;
