@@ -16,8 +16,8 @@
                         <h1><a href="index.html">Mehmetcan Tozlu</a></h1>
                         <nav class="links">
                             <ul>
-                                <li><a href="#main">Projeler (GitHub)</a></li>
-                                <li><a href="#sidebar">Yazılar (Medium)</a></li>
+                                <li><a href="#main">Projects (GitHub)</a></li>
+                                <li><a href="#sidebar">Articles (Medium)</a></li>
                             </ul>
                         </nav>
                         <nav class="main">
@@ -29,46 +29,46 @@
                         </nav>
                     </header>
 
-                <!-- Menu (Mobil Görünüm İçin) -->
+                <!-- Menu (Mobile View) -->
                     <section id="menu">
                         <section>
                             <ul class="links">
                                 <li>
                                     <a href="https://github.com/MehmetcanTozlu" target="_blank">
-                                        <h3>GitHub Profilim</h3>
-                                        <p>Tüm açık kaynak kodlu projelerim</p>
+                                        <h3>GitHub Profile</h3>
+                                        <p>My open-source projects</p>
                                     </a>
                                 </li>
                                 <li>
                                     <a href="https://www.linkedin.com/in/mehmetcan-tozlu/" target="_blank">
                                         <h3>LinkedIn</h3>
-                                        <p>Profesyonel ağım</p>
+                                        <p>My professional network</p>
                                     </a>
                                 </li>
                             </ul>
                         </section>
                     </section>
 
-                <!-- Main (GitHub Projeleri Buraya Gelecek) -->
+                <!-- Main (GitHub Projects) -->
                     <div id="main">
                         <div id="github-repos">
-                            <!-- JS ile Yüklenirken Görünecek Geçici Post -->
+                            <!-- Temporary Loading Post -->
                             <article class="post">
                                 <header>
                                     <div class="title">
-                                        <h2>GitHub Projeleri Yükleniyor...</h2>
+                                        <h2>Loading GitHub Projects...</h2>
                                     </div>
                                 </header>
                             </article>
                         </div>
                     </div>
 
-                <!-- Sidebar (Profil ve Medium Yazıları) -->
+                <!-- Sidebar (Profile and Medium Articles) -->
                     <section id="sidebar">
 
-                        <!-- Intro / Profil Alanı -->
+                        <!-- Intro / Profile Area -->
                             <section id="intro">
-                                <a href="#" class="logo"><img src="images/logo.jpg" alt="Mehmetcan Tozlu" /></a> <!-- images klasörüne kendi resmini logo.jpg olarak ekle -->
+                                <a href="#" class="logo"><img src="images/logo.jpg" alt="Mehmetcan Tozlu" /></a>
                                 <header>
                                     <h2>Mehmetcan Tozlu</h2>
                                     <p>Software Engineer &nbsp;&bull;&nbsp; ML / AI / Gen AI Researcher</p>
@@ -80,15 +80,15 @@
                                 </header>
                             </section>
 
-                        <!-- Mini Posts (Medium Yazıları Buraya Gelecek) -->
+                        <!-- Mini Posts (Medium Articles) -->
                             <section>
-                                <h3>Son Yazılarım</h3>
+                                <h3>Latest Posts</h3>
                                 <div class="mini-posts" id="medium-articles">
                                     
-                                    <!-- JS ile Yüklenirken Görünecek Geçici Mini Post -->
+                                    <!-- Temporary Loading Mini Post -->
                                     <article class="mini-post">
                                         <header>
-                                            <h3>Yazılar Yükleniyor...</h3>
+                                            <h3>Loading Articles...</h3>
                                         </header>
                                     </article>
 
@@ -111,15 +111,15 @@
             <script src="assets/js/util.js"></script>
             <script src="assets/js/main.js"></script>
 
-            <!-- GITHUB VE MEDIUM API ENTEGRASYONU -->
+            <!-- GITHUB AND MEDIUM API INTEGRATION -->
             <script>
-                // Tarih formatlamak için yardımcı fonksiyon
+                // Helper function to format date
                 function formatDate(dateString) {
                     const options = { year: 'numeric', month: 'long', day: 'numeric' };
-                    return new Date(dateString).toLocaleDateString('tr-TR', options);
+                    return new Date(dateString).toLocaleDateString('en-US', options);
                 }
 
-                // 1. GitHub Repolarını Çek (Ana Alana Ekle)
+                // 1. Fetch GitHub Repositories
                 fetch('https://api.github.com/users/MehmetcanTozlu/repos?sort=created&direction=desc&per_page=5')
                     .then(response => response.json())
                     .then(data => {
@@ -127,31 +127,30 @@
                         repoContainer.innerHTML = ''; 
                         
                         data.forEach(repo => {
-                            // Şablonun <article class="post"> yapısına uygun HTML oluşturuyoruz
                             repoContainer.innerHTML += `
                                 <article class="post">
                                     <header>
                                         <div class="title">
                                             <h2><a href="${repo.html_url}" target="_blank">${repo.name}</a></h2>
-                                            <p>${repo.description ? repo.description : 'Bu proje için henüz bir açıklama girilmemiş.'}</p>
+                                            <p>${repo.description ? repo.description : 'No description provided for this project yet.'}</p>
                                         </div>
                                         <div class="meta">
                                             <time class="published" datetime="${repo.created_at}">${formatDate(repo.created_at)}</time>
-                                            <span class="author"><span class="name">${repo.language ? repo.language : 'Kod'}</span><i class="icon solid fa-code" style="font-size: 2em; color: #ccc;"></i></span>
+                                            <span class="author"><span class="name">${repo.language ? repo.language : 'Code'}</span><i class="icon solid fa-code" style="font-size: 2em; color: #ccc;"></i></span>
                                         </div>
                                     </header>
                                     <footer>
                                         <ul class="actions">
-                                            <li><a href="${repo.html_url}" target="_blank" class="button large">Projeyi İncele</a></li>
+                                            <li><a href="${repo.html_url}" target="_blank" class="button large">View Project</a></li>
                                         </ul>
                                     </footer>
                                 </article>
                             `;
                         });
-                    }).catch(err => console.log('GitHub verisi çekilemedi:', err));
+                    }).catch(err => console.log('Could not fetch GitHub data:', err));
 
-                // 2. Medium Yazılarını Çek (Sağ Kenar Çubuğuna Ekle)
-                const mediumUsername = 'senin_medium_kullanici_adin'; // DİKKAT: BURAYI KENDİ MEDIUM KULLANICI ADINLA DEĞİŞTİR
+                // 2. Fetch Medium Articles
+                const mediumUsername = 'senin_medium_kullanici_adin'; // UPDATE THIS WITH YOUR MEDIUM USERNAME
                 
                 fetch(`https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@${mediumUsername}`)
                     .then(response => response.json())
@@ -160,17 +159,15 @@
                         articleContainer.innerHTML = '';
                         
                         if(data.items && data.items.length > 0) {
-                            const latestArticles = data.items.slice(0, 4); // Son 4 yazıyı al
+                            const latestArticles = data.items.slice(0, 4); 
                             
                             latestArticles.forEach(article => {
-                                // Yazının içinden ilk resmi bulmaya çalış, yoksa şablonun varsayılan resmini kullan
                                 let imgSrc = 'images/pic04.jpg';
                                 const imgMatch = article.description.match(/<img[^>]+src="([^">]+)"/);
                                 if (imgMatch) {
                                     imgSrc = imgMatch[1];
                                 }
 
-                                // Şablonun <article class="mini-post"> yapısına uygun HTML oluşturuyoruz
                                 articleContainer.innerHTML += `
                                     <article class="mini-post">
                                         <header>
@@ -182,9 +179,9 @@
                                 `;
                             });
                         } else {
-                            articleContainer.innerHTML = '<p style="padding:1em;">Henüz yazı bulunmuyor.</p>';
+                            articleContainer.innerHTML = '<p style="padding:1em;">No articles found yet.</p>';
                         }
-                    }).catch(err => console.log('Medium verisi çekilemedi:', err));
+                    }).catch(err => console.log('Could not fetch Medium data:', err));
             </script>
     </body>
 </html>
