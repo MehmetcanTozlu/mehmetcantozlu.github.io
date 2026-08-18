@@ -678,11 +678,21 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
                 }
 
                 // 1. GitHub Verilerini Çek ve Var Olan Kutu İçeriklerini (Text/Href) Güncelle
-                fetch('https://api.github.com/users/MehmetcanTozlu/repos?sort=updated&direction=desc&per_page=3')
+                fetch('https://api.github.com/users/MehmetcanTozlu/repos?sort=updated&direction=desc&per_page=10')
                     .then(res => res.json())
                     .then(data => {
+                        // GİZLEMEK İSTEDİĞİN REPOLARIN İSİMLERİ:
+                        const excludedRepos = ['mehmetcantozlu.github.io', 'MehmetcanTozlu'];
+                        
+                        // İstemediğin repoları hariç tut
+                        const filteredRepos = data.filter(repo => !excludedRepos.includes(repo.name));
+                        
+                        // Kalanlardan sadece ilk 3 tanesini al
+                        const reposToShow = filteredRepos.slice(0, 3);
+
                         const posts = document.querySelectorAll('#main > .post'); 
-                        data.forEach((repo, i) => {
+                        
+                        reposToShow.forEach((repo, i) => {
                             if (posts[i]) {
                                 const post = posts[i];
                                 
@@ -713,13 +723,19 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
                                     stats[1].querySelector('a').textContent = repo.stargazers_count;
                                     stats[1].querySelector('a').href = repo.html_url + '/stargazers';
                                     
-                                    // İkonun sınıfını yorum simgesinden fork (dal) simgesine çeviriyoruz (varsa)
+                                    // İkonun sınıfını fork (dal) simgesine çeviriyoruz
                                     stats[2].querySelector('a').className = 'icon solid fa-code-branch';
                                     stats[2].querySelector('a').textContent = repo.forks_count;
                                     stats[2].querySelector('a').href = repo.html_url + '/network/members';
                                 }
                             }
                         });
+                        
+                        // Eğer gösterilecek repo sayısı 3'ten az olursa, fazla kalan (içi boş) kutuları gizleyelim
+                        for(let j = reposToShow.length; j < posts.length; j++) {
+                            posts[j].style.display = 'none';
+                        }
+                        
                     }).catch(err => console.log('GitHub fetch error:', err));
 
                 // 2. Medium Yazılarını Çek ve Sağ Menüdeki Var Olan Mini-Post'ları Güncelle
