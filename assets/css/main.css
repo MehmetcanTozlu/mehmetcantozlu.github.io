@@ -82,27 +82,13 @@ input, select, textarea {
 		-ms-overflow-style: scrollbar;
 	}
 
-	/* @media screen and (max-width: 480px) {
+	@media screen and (max-width: 480px) {
 
 		html, body {
 			min-width: 320px;
 		}
 
-	} */
-
-	@media screen and (max-width: 480px) {
-
-        html, body {
-            min-width: 300px;
-            min-height: 300px;
-        }
-        
-        #wrapper {
-            min-width: 300px;
-            min-height: 300px;
-        }
-
-    }
+	}
 
 	html {
 		box-sizing: border-box;
@@ -3623,69 +3609,3 @@ input, select, textarea {
 			}
 
 		}
-
-/* =========================================
-   KULLANICI ÖZEL DÜZELTMELERİ (OVERRIDE)
-========================================= */
-
-/* 1. Genişlik ve Yükseklik 300px altına düşmesin */
-html, body, #wrapper {
-    min-width: 300px !important;
-    min-height: 300px !important;
-}
-
-/* 2. 1280px ile 1400px arası Sidebar ve Main sıkışmasını engelleme */
-@media screen and (max-width: 1400px) {
-    #wrapper {
-        display: block !important;
-    }
-    
-    #sidebar {
-        border-top: solid 1px rgba(160, 160, 160, 0.3) !important;
-        margin: 3em 0 0 0 !important;
-        min-width: 0 !important;
-        padding: 3em 0 0 0 !important;
-        width: 100% !important;
-        overflow-x: hidden !important;
-    }
-}
-
-/* 3. Ara çözünürlüklerde (1280px-1400px) Post başlıklarının sola taşmasını düzeltme */
-@media screen and (max-width: 1400px) and (min-width: 981px) {
-    .post > header {
-        display: flex !important;
-        flex-direction: column !important;
-        padding: 2em 3em !important;
-    }
-    
-    .post > header .meta {
-        border-left: 0 !important;
-        width: 100% !important;
-        text-align: left !important;
-        padding: 1em 0 0 0 !important;
-        display: flex !important;
-        justify-content: flex-start !important;
-        margin-top: 1em !important;
-        border-top: solid 1px rgba(160, 160, 160, 0.3) !important;
-    }
-    
-    .post > header .meta > * {
-        border-left: solid 1px rgba(160, 160, 160, 0.3) !important;
-        margin-left: 1.5em !important;
-        padding-left: 1.5em !important;
-    }
-    
-    .post > header .meta > :first-child {
-        margin-left: 0 !important;
-        padding-left: 0 !important;
-        border-left: 0 !important;
-    }
-    
-    .post > header .meta .author {
-        flex-direction: row-reverse !important;
-    }
-    
-    .post > header .meta .author .name {
-        margin: 0 0 0 1.5em !important;
-    }
-}
