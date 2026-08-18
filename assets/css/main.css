@@ -3609,3 +3609,13 @@ input, select, textarea {
 			}
 
 		}
+
+/* Uzun kelimelerin, repo isimlerinin ve linklerin taşmasını engelleme */
+.post .title h2,
+.post .title h2 a,
+.mini-post header h3,
+.mini-post header h3 a {
+    overflow-wrap: break-word !important;
+    word-wrap: break-word !important;
+    word-break: break-word !important;
+}
